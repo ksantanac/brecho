@@ -1,0 +1,27 @@
+# Excluir ambiente virtual
+env/
+venv/
+
+# Excluir arquivos de cache Python
+__pycache__/
+*.py[cod]
+
+# Excluir arquivos temporários
+*.swp
+*.swo
+
+# Excluir arquivos de configurações do editor
+.vscode/
+.idea/
+
+# Excluir arquivos de logs
+*.log
+
+# Excluir arquivos de banco de dados SQLite
+db.sqlite3
+
+# Excluir arquivos de migrações (opcional, se não quiser versionar migrações)
+**/migrations/
+
+# Excluir arquivos sensíveis
+*.env
