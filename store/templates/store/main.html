@@ -27,12 +27,21 @@
           </ul>
 
            <!-- Formulário de pesquisa centralizado -->
-          <div class="mx-auto">
+          <!-- <div class="mx-auto">
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search" style="width: 750px;">
-                <button class="btn btn-warning my-2 my-sm-0 btn-custom" type="submit">Pesquisar</button> <!-- Adicionando a classe personalizada btn-custom -->
+                <button class="btn btn-warning my-2 my-sm-0 btn-custom" type="submit">Pesquisar</button> 
+            </form>
+          </div> -->
+
+          <!-- Formulário de pesquisa centralizado -->
+          <div class="mx-auto">
+            <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="GET">
+                <input class="form-control mr-sm-2" type="search" name="query" placeholder="Buscar..." aria-label="Search" style="width: 750px;">
+                <button class="btn btn-warning my-2 my-sm-0 btn-custom" type="submit">Pesquisar</button> <!-- Botão de pesquisa -->
             </form>
           </div>
+
 
           <div class="form-inline my-2 my-lg-0">
             <a href="#"class="btn btn-custom">Login</a>

@@ -1,0 +1,29 @@
+{% extends 'store/main.html' %}
+
+{% block content %}
+    <h2>Resultados da Busca: "{{ query }}"</h2>
+
+    {% if products %}
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <!-- Exibe a imagem do produto -->
+                    <img src="{{ product.imageURL }}" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                    <div class="card-body">
+                        <!-- Exibe o nome do produto -->
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <!-- Exibe o preço do produto -->
+                        <p class="card-text">R$ {{ product.price }}</p>
+                        <!-- Link para a página do produto (ajuste a URL conforme necessário) -->
+                        <a href="#" class="btn btn-primary">Ver Produto</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>Nenhum produto encontrado.</p>
+    {% endif %}
+
+{% endblock content %}
