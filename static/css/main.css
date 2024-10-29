@@ -25,9 +25,13 @@ h1,h2,h3,h4,h5,h6{
 	border-radius: 0 0 4px 4px;
 }
 
-.bg-dark{
-	background-color: #4f868c!important;
-}
+/* .bg-dark{
+	background-color: #0a4b06!important;
+} */
+
+/* .navbar-custom {
+    background-color: #47c929 !important;
+} */
 
 #cart-icon{
 	width:25px;
@@ -77,8 +81,6 @@ h1,h2,h3,h4,h5,h6{
 	display: inline-block;
 	font-weight: 700;
 	padding-right:10px;
-	
-
 }
 
 .chg-quantity{
@@ -107,4 +109,14 @@ h1,h2,h3,h4,h5,h6{
 
 .search-container {
     margin-left: 20px !important; /* Força a margem */
+}
+
+.btn-custom {
+    background-color: #E4E2DD !important; /* Cor de fundo personalizada */
+    border: none !important; /* Remove a borda padrão */
+    color: rgb(0, 0, 0) !important; /* Cor do texto do botão */
+}
+
+.btn-custom:hover {
+    background-color: #bbb7b7 !important; /* Cor ao passar o mouse */
 }
