@@ -8,15 +8,42 @@
         {% for product in products %}
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <!-- Exibe a imagem do produto -->
-                    <img src="{{ product.imageURL }}" class="card-img-top" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                    <!-- Exibe o carrossel de imagens -->
+                    <div id="carousel-{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <!-- Imagem principal do produto -->
+                            <div class="carousel-item active">
+                                <img src="{{ product.imageURL }}" class="d-block w-100" alt="{{ product.name }}">
+                            </div>
+
+                            <!-- Imagens adicionais do produto -->
+                            {% for image in product.images.all %}
+                                <div class="carousel-item">
+                                    <img src="{{ image.image.url }}" class="d-block w-100" alt="{{ product.name }}">
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Controles do carrossel -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ product.id }}" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ product.id }}" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
                     <div class="card-body">
                         <!-- Exibe o nome do produto -->
                         <h5 class="card-title">{{ product.name }}</h5>
                         <!-- Exibe o preço do produto -->
                         <p class="card-text">R$ {{ product.price }}</p>
-                        <!-- Link para a página do produto (ajuste a URL conforme necessário) -->
-                        <a href="#" class="btn btn-primary">Ver Produto</a>
+                        <!-- Botão de adicionar ao carrinho -->
+                        <button data-product="{{ product.id }}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                        <!-- Link para visualizar mais detalhes do produto -->
+                        <a href="#" class="btn btn-outline-success">Ver Produto</a>
                     </div>
                 </div>
             </div>
