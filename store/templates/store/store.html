@@ -3,43 +3,6 @@
 
 {% block content %}
     <div class="row">
-        <!-- {% for product in products %}
-        <div class="col-lg-4">
-            <img class="thumbnail" src="{{product.imageURL}}">
-            <div class="box-element product">
-                <h6><strong>{{product.name}}</strong></h6>
-                <hr>
-                <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-                <a class="btn btn-outline-success" href="#">View</a>
-                <h4 style="display: inline-block; float: right">R$ {{product.price|floatformat:2}}</h4>
-            </div>
-        </div>
-        {% endfor %} -->
-
-
-<!-- 
-        {% for product in products %}
-        <div class="col-lg-4">
-             Exibe a imagem principal
-            <img class="thumbnail" src="{{ product.imageURL }}">
-            <div class="box-element product">
-                <h6><strong>{{ product.name }}</strong></h6>
-                <hr>
-
-                 Exibe imagens adicionais 
-                <div class="product-gallery">
-                    {% for image in product.images.all %}
-                        <img class="thumbnail" src="{{ image.image.url }}" style="width: 100px; height: auto; margin: 5px;">
-                    {% endfor %}
-                </div>
-
-                <button data-product="{{ product.id }}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-                <a class="btn btn-outline-success" href="#">View</a>
-                <h4 style="display: inline-block; float: right">R$ {{ product.price|floatformat:2 }}</h4>
-            </div>
-        </div>
-        {% endfor %} -->
-
 
         {% for product in products %}
         <div class="col-lg-4">
@@ -73,13 +36,12 @@
             <div class="box-element product">
                 <h6><strong>{{ product.name }}</strong></h6>
                 <hr>
-                <button data-product="{{ product.id }}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
                 <a class="btn btn-outline-success" href="#">View</a>
                 <h4 style="display: inline-block; float: right">R$ {{ product.price|floatformat:2 }}</h4>
             </div>
         </div>
     {% endfor %}
-
 
     </div>
 {% endblock content %}
