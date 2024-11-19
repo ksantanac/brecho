@@ -20,16 +20,13 @@ class Product(models.Model):
     price = models.FloatField()
     # Indica se o produto é digital (exemplo: e-book, software)
     digital = models.BooleanField(default=False, null=True, blank=True)
-<<<<<<< HEAD
+
     image = models.ImageField(null=True, blank=True)
-=======
->>>>>>> 8442fd24c0596e60769e88e69cb66c13b1634edf
 
     def __str__(self):
         # Retorna o nome do produto ao chamar o modelo
         return self.name
 
-<<<<<<< HEAD
     @property
     def imageURL(self):
         try:
@@ -38,10 +35,16 @@ class Product(models.Model):
             url = ""
         
         return url
+    
+    
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='product_images/')
 
+    def __str__(self):
+        return f"Image for {self.product.name}"
+    
 
-=======
->>>>>>> 8442fd24c0596e60769e88e69cb66c13b1634edf
 class Order(models.Model):
     # Relacionamento muitos-para-um com o modelo Customer, representando o cliente do pedido
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
@@ -55,7 +58,6 @@ class Order(models.Model):
     def __str__(self):
         # Retorna o ID do pedido como string ao chamar o modelo
         return str(self.id)
-<<<<<<< HEAD
     
     @property
     def get_cart_total(self):
@@ -68,9 +70,6 @@ class Order(models.Model):
         orderitems = self.orderitem_set.all()
         total = sum([item.quantity for item in orderitems])
         return total
-    
-=======
->>>>>>> 8442fd24c0596e60769e88e69cb66c13b1634edf
 
 class OrderItem(models.Model):
     # Relacionamento muitos-para-um com o modelo Product, representando o produto associado
@@ -81,15 +80,11 @@ class OrderItem(models.Model):
     quantity = models.IntegerField(default=0, null=True, blank=True)
     # Data de adição do item ao pedido
     date_added = models.DateTimeField(auto_now_add=True)
-<<<<<<< HEAD
     
     @property
     def get_total(self):
         total = self.product.price * self.quantity
         return total
-    
-=======
->>>>>>> 8442fd24c0596e60769e88e69cb66c13b1634edf
 
 class ShippingAddress(models.Model):
     # Relacionamento muitos-para-um com o modelo Customer
