@@ -141,3 +141,26 @@ h1,h2,h3,h4,h5,h6{
 .carousel-control-next-icon {
     transform: scale(1); /* Reduz o tamanho da seta */
 }
+
+
+#make-payment {
+    background-color: #28a745; /* Cor verde */
+    color: white; /* Cor do texto */
+    border: none; /* Remove borda */
+    padding: 5px 10px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+    font-weight: bold; /* Texto em negrito */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de mão ao passar por cima */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transição para efeito ao passar o mouse */
+}
+
+#make-payment:hover {
+    background-color: #218838; /* Tom de verde mais escuro ao passar o mouse */
+    transform: scale(1.05); /* Aumenta levemente o tamanho */
+}
+
+#make-payment:active {
+    background-color: #1e7e34; /* Tom ainda mais escuro ao clicar */
+    transform: scale(0.98); /* Efeito de "pressionar" */
+}
