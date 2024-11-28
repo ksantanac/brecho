@@ -17,7 +17,7 @@
 						</div>
                     </div>
 
-                    <div class="shipping-info">
+                    <div class="shipping-info" id="shipping-info">
                         <hr>
 						<!-- <p>Endereço:</p> -->
                         <p><img src="{% static 'images/icon-map.png' %}" alt="Map Icon" class="icon" style="width: 16px; height: 16px; margin-left: 4px;; vertical-align: middle;"> Endereço:</p>
@@ -74,5 +74,13 @@
         </div>
 
     </div>
+
+    <script type="text/javascript">
+        var shipping = '{{ order.shipping }}'
+    
+        if (shipping == 'False'){
+             document.getElementById('shipping-info').innerHTML = ''
+        }
+    </script>
 
 {% endblock content %}

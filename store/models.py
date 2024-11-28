@@ -36,7 +36,6 @@ class Product(models.Model):
         
         return url
     
-    
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='product_images/')
@@ -44,7 +43,6 @@ class ProductImage(models.Model):
     def __str__(self):
         return f"Image for {self.product.name}"
     
-
 class Order(models.Model):
     # Relacionamento muitos-para-um com o modelo Customer, representando o cliente do pedido
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
@@ -59,6 +57,21 @@ class Order(models.Model):
         # Retorna o ID do pedido como string ao chamar o modelo
         return str(self.id)
     
+    @property
+    def shipping(self):
+        # Inicializa a variável shipping como False, assumindo que não há necessidade de envio
+        shipping = False
+        # Obtém todos os itens do pedido (relacionamento reverso com OrderItem)
+        orderitems = self.orderitem_set.all()
+        # Itera por cada item no pedido
+        for i in orderitems:
+            # Verifica se o produto associado não é digital
+            if i.product.digital == False:
+                # Se houver pelo menos um produto físico, define shipping como True
+                shipping = True
+        # Retorna o valor de shipping (True ou False)
+        return shipping
+
     @property
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()
