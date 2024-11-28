@@ -18,10 +18,10 @@ for (i = 0; i < updateBtns.length; i++) {
 
 function updateUserOrder(productId, action) {
     // Exibe no console uma mensagem indicando que os dados estão sendo enviados
-    console.log("Usuário logado, enviando dados...");
+    console.log("Usuário logado, enviando dados...")
 
     // Define a URL do endpoint que será chamado
-    var url = '/update_item/';
+    var url = '/update_item/'
 
     // Faz uma solicitação HTTP POST para a URL definida
     fetch(url, {
@@ -37,11 +37,13 @@ function updateUserOrder(productId, action) {
     // Lida com a resposta da solicitação
     .then((response) => {
         // Retorna a resposta como JSON para a próxima etapa
-        return response.json();
+        return response.json()
     })
 
     .then((data) => {
         // Exibe os dados retornados pelo servidor no console
-        console.log('data:', data);
+        console.log('data:', data)
+        console.log('Reloading the page...')
+        location.reload()
     })
 }
