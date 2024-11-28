@@ -7,7 +7,7 @@ class Customer(models.Model):
     # Nome do cliente
     name = models.CharField(max_length=200, null=True)
     # Email do cliente
-    email = models.CharField(max_length=200)
+    email = models.EmailField(max_length=200, )
 
     def __str__(self):
         # Retorna o nome do cliente ao chamar o modelo
@@ -17,7 +17,7 @@ class Product(models.Model):
     # Nome do produto
     name = models.CharField(max_length=200)
     # Preço do produto
-    price = models.FloatField()
+    price = models.DecimalField(max_digits=7, decimal_places=2)
     # Indica se o produto é digital (exemplo: e-book, software)
     digital = models.BooleanField(default=False, null=True, blank=True)
 

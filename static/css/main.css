@@ -142,7 +142,6 @@ h1,h2,h3,h4,h5,h6{
     transform: scale(1); /* Reduz o tamanho da seta */
 }
 
-
 #make-payment {
     background-color: #28a745; /* Cor verde */
     color: white; /* Cor do texto */
