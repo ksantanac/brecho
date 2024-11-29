@@ -131,3 +131,6 @@ STATICFILES_DIRS= [
 MEDIA_URL = '/images/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+# Define o redirecionamento padrão após o login
+LOGIN_REDIRECT_URL = 'store'  # Redireciona para a página store

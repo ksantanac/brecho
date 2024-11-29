@@ -82,13 +82,22 @@
 
 
           <div class="form-inline my-2 my-lg-0" style="margin-left: 20px;">
-            <a href="#" class="btn btn-custom">Login</a>
-            
+            {% if user.is_authenticated %}
+                <span class="text-white mr-3">Olá, {{ user.username }}</span>
+                <!-- Formulário de Logout -->
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-custom">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-custom">Login</a>
+            {% endif %}
+        
             <a href="{% url 'cart' %}">
                 <img id="cart-icon" src="{% static 'images/cart.png' %}">
             </a>
-            <p id="cart-total">{{cartItems}}</p>
-          </div>
+            <p id="cart-total">{{ cartItems }}</p>
+        </div>
 
     </nav>
 

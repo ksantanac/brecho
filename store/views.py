@@ -1,5 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from .forms import UserRegistrationForm
 
 from .models import *
 from .utils import cookieCart, cartData, guestOrder
@@ -16,6 +20,7 @@ def store(request):
     context = {'products': products, 'cartItems': cartItems}
     return render(request, 'store/store.html', context)
 
+@login_required(login_url='/login/')
 def cart(request):
     
     data = cartData(request)
@@ -26,7 +31,7 @@ def cart(request):
     context = {'items': items, 'order': order, 'cartItems': cartItems}
     return render(request, 'store/cart.html', context)
 
-
+@login_required(login_url='/login/')
 def checkout(request):
 
     data = cartData(request)
@@ -59,8 +64,21 @@ def updateItem(request):
     
     customer = request.user.customer
     product = Product.objects.get(id=productId)
-    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    # order, created = Order.objects.get_or_create(customer=customer, complete=False)
     
+    # orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+    
+    # Usando filter para pegar todos os pedidos incompletos
+    orders = Order.objects.filter(customer=customer, complete=False)
+
+    if orders.exists():
+        # Se houver pedidos incompletos, pega o primeiro (ou o mais recente se preferir)
+        order = orders.first()
+    else:
+        # Se não existir nenhum pedido incompleto, cria um novo pedido
+        order = Order.objects.create(customer=customer, complete=False)
+    
+    # Recupera ou cria o item do pedido
     orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
     
     if action == "add":
@@ -107,3 +125,15 @@ def processOrder(request):
         )  
     
     return JsonResponse("Pagamento concluído!", safe=False)
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Faz o login automaticamente após o registro
+            return redirect('store')  # Redireciona para a página da loja
+    else:
+        form = UserRegistrationForm()
+    
+    return render(request, 'store/register.html', {'form': form})

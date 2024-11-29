@@ -72,3 +72,49 @@ function updateUserOrder(productId, action) {
         location.reload()
     })
 }
+
+// var updateBtns = document.getElementsByClassName('update-cart');
+
+// // Adiciona evento de clique a cada botão "update-cart"
+// for (let i = 0; i < updateBtns.length; i++) {
+//     updateBtns[i].addEventListener('click', function () {
+//         // Obtém os valores de data-* do botão clicado
+//         var productId = this.dataset.product;
+//         var action = this.dataset.action;
+
+//         console.log('Produto ID:', productId, 'Ação:', action);
+//         console.log("Usuário:", user);
+
+//         // Verifica se o usuário é anônimo
+//         if (user === 'AnonymousUser') {
+//             alert("Você precisa estar logado para adicionar itens ao carrinho ou finalizar a compra!");
+//             window.location.href = '/login/'; // Redireciona para a página de login
+//         } else {
+//             // Atualiza o pedido do usuário logado
+//             updateUserOrder(productId, action);
+//         }
+//     });
+// }
+
+// // Função para atualizar o pedido do usuário logado
+// function updateUserOrder(productId, action) {
+//     console.log("Usuário autenticado, enviando dados para o backend...");
+
+//     var url = '/update_item/';
+
+//     fetch(url, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'X-CSRFToken': csrftoken
+//         },
+//         body: JSON.stringify({ 'productId': productId, 'action': action })
+//     })
+//         .then((response) => {
+//             return response.json();
+//         })
+//         .then((data) => {
+//             console.log('Resposta do servidor:', data);
+//             location.reload();
+//         });
+// }

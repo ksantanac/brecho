@@ -40,10 +40,44 @@ def cookieCart(request):
     
     return {'cartItems':cartItems ,'order':order, 'items':items}
 
+# def cartData(request):
+#     if request.user.is_authenticated:
+#         customer = request.user.customer
+#         # order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        
+#          # Usando filter para pegar todos os pedidos incompletos
+#         orders = Order.objects.filter(customer=customer, complete=False)
+        
+#         # Se houver pedidos, pegar o primeiro (ou o mais recente se preferir)
+#         if orders.exists():
+#             order = orders.first()  # Pega o primeiro pedido da lista
+#         else:
+#             # Se não existir nenhum pedido, cria um novo pedido
+#             order = Order.objects.create(customer=customer, complete=False)
+        
+#         items = order.orderitem_set.all()
+#         cartItems = order.get_cart_items
+#     else:
+#         cookieData = cookieCart(request)
+#         cartItems = cookieData['cartItems']
+#         order = cookieData['order']
+#         items = cookieData['items']
+        
+#     return {'cartItems':cartItems ,'order':order, 'items':items}
+
 def cartData(request):
     if request.user.is_authenticated:
         customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        # Usando filter para pegar todos os pedidos incompletos
+        orders = Order.objects.filter(customer=customer, complete=False)
+        
+        # Se houver pedidos, pegar o primeiro (ou o mais recente se preferir)
+        if orders.exists():
+            order = orders.first()  # Pega o primeiro pedido da lista
+        else:
+            # Se não existir nenhum pedido, cria um novo pedido
+            order = Order.objects.create(customer=customer, complete=False)
+        
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
@@ -52,7 +86,7 @@ def cartData(request):
         order = cookieData['order']
         items = cookieData['items']
         
-    return {'cartItems':cartItems ,'order':order, 'items':items}
+    return {'cartItems': cartItems, 'order': order, 'items': items}
 
 def guestOrder(request, data):
     print("Usuario não logado...")
