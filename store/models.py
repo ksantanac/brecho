@@ -11,7 +11,7 @@ class Customer(models.Model):
 
     def __str__(self):
         # Retorna o nome do cliente ao chamar o modelo
-        return self.name
+        return self.name if self.name else f"Customer {self.id}"
 
 class Product(models.Model):
     # Nome do produto

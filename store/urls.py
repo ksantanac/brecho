@@ -14,7 +14,9 @@ urlpatterns = [
     
     path("register/", views.register, name="register"),  # Nova rota para registro
     
-    # Rotas para login e logout
-    path("login/", auth_views.LoginView.as_view(template_name='store/login.html'), name="login"),
+    # Usando a view personalizada de login
+    path("login/", views.user_login, name="login"),
+
+    # Logout padrão
     path('logout/', LogoutView.as_view(next_page='store'), name='logout'),
 ]

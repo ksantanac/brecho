@@ -2,11 +2,17 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import authenticate, login
 from .forms import UserRegistrationForm
+# from .forms import CustomAuthenticationForm
+
+from django.contrib import messages
+from .forms import CustomUserLoginForm  # Aqui você vai precisar criar um formulário customizado
 
 from .models import *
 from .utils import cookieCart, cartData, guestOrder
+
+from django.views.decorators.csrf import csrf_protect
 
 import json
 import datetime
@@ -126,6 +132,7 @@ def processOrder(request):
     
     return JsonResponse("Pagamento concluído!", safe=False)
 
+@csrf_protect
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
@@ -137,3 +144,23 @@ def register(request):
         form = UserRegistrationForm()
     
     return render(request, 'store/register.html', {'form': form})
+
+@csrf_protect
+def user_login(request):
+    if request.method == "POST":
+        email = request.POST['email']
+        password = request.POST['password']
+        
+        # Buscar usuário pelo email
+        try:
+            user = User.objects.get(email=email)
+            user = authenticate(request, username=user.username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('store')  # Redirecionar para a página desejada após login
+            else:
+                messages.error(request, 'E-mail ou senha inválidos!')
+        except User.DoesNotExist:
+            messages.error(request, 'E-mail ou senha inválidos!')
+    
+    return render(request, 'store/login.html')

@@ -1,5 +1,7 @@
 import json
 from .models import *
+from django.core.exceptions import ObjectDoesNotExist
+from django.views.decorators.csrf import csrf_protect
 
 def cookieCart(request):
     try:
@@ -40,35 +42,17 @@ def cookieCart(request):
     
     return {'cartItems':cartItems ,'order':order, 'items':items}
 
-# def cartData(request):
-#     if request.user.is_authenticated:
-#         customer = request.user.customer
-#         # order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        
-#          # Usando filter para pegar todos os pedidos incompletos
-#         orders = Order.objects.filter(customer=customer, complete=False)
-        
-#         # Se houver pedidos, pegar o primeiro (ou o mais recente se preferir)
-#         if orders.exists():
-#             order = orders.first()  # Pega o primeiro pedido da lista
-#         else:
-#             # Se não existir nenhum pedido, cria um novo pedido
-#             order = Order.objects.create(customer=customer, complete=False)
-        
-#         items = order.orderitem_set.all()
-#         cartItems = order.get_cart_items
-#     else:
-#         cookieData = cookieCart(request)
-#         cartItems = cookieData['cartItems']
-#         order = cookieData['order']
-#         items = cookieData['items']
-        
-#     return {'cartItems':cartItems ,'order':order, 'items':items}
 
 def cartData(request):
     if request.user.is_authenticated:
-        customer = request.user.customer
-        # Usando filter para pegar todos os pedidos incompletos
+        try:
+            # Verifica se o usuário tem um Customer associado
+            customer = request.user.customer
+        except ObjectDoesNotExist:
+            # Se o Customer não existir, cria um novo automaticamente
+            customer = Customer.objects.create(user=request.user)
+
+        # Busca pedidos incompletos relacionados ao Customer
         orders = Order.objects.filter(customer=customer, complete=False)
         
         # Se houver pedidos, pegar o primeiro (ou o mais recente se preferir)
@@ -81,6 +65,7 @@ def cartData(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        # Para usuários não autenticados, usa os dados do cookie
         cookieData = cookieCart(request)
         cartItems = cookieData['cartItems']
         order = cookieData['order']
